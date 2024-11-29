@@ -1,0 +1,60 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:appLockerUi="clr-namespace:AppLockerUI"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=appLockerUi:MainWindowViewModel, IsDesignTimeCreatable=True}"
+        Width="800" Height="450"
+        x:CompileBindings="True"
+        x:DataType="appLockerUi:MainWindowViewModel"
+        x:Class="AppLockerUI.MainWindow"
+        Title="AppLockerUI">
+    <DockPanel LastChildFill="True">
+        <Border DockPanel.Dock="Left" Width="200" Background="#252526">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0">
+                    <TextBlock Text="AppLocker" Foreground="White" FontSize="25" Margin="20 20 20 50" FontWeight="Bold" />
+                    <Button Margin="0" Padding="10 20 20 20" Foreground="White" Background="Transparent" HorizontalAlignment="Stretch" Command="{Binding NavigateHomeCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{SvgImage avares://AppLockerUI/Assets/home.svg}" Width="20" Height="20" Margin="0 0 10 0"/>
+                            <TextBlock Text="Home" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <Button Margin="0" Padding="10 20 20 20" Foreground="White" Background="Transparent" HorizontalAlignment="Stretch" Command="{Binding NavigateApplicationsCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{SvgImage avares://AppLockerUI/Assets/applications.svg}" Width="20" Height="20" Margin="0 0 10 0"/>
+                            <TextBlock Text="Manage Applications" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <Button Margin="0" Padding="10 20 20 20" Foreground="White" Background="Transparent" HorizontalAlignment="Stretch">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{SvgImage avares://AppLockerUI/Assets/stats.svg}" Width="20" Height="20" Margin="0 0 10 0"/>
+                            <TextBlock Text="Activity Log" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <Button Margin="0" Padding="10 20 20 20" Foreground="White" Background="Transparent" HorizontalAlignment="Stretch">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{SvgImage avares://AppLockerUI/Assets/settings.svg}" Width="20" Height="20" Margin="0 0 10 0"/>
+                            <TextBlock Text="Settings" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+                <Button Grid.Row="2" Margin="0" Padding="10 20 20 20" Foreground="White" Background="Transparent" HorizontalAlignment="Stretch">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{SvgImage avares://AppLockerUI/Assets/profile.svg}" Width="20" Height="20" Margin="0 0 10 0"/>
+                        <TextBlock Text="Your Account" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </Border>
+        <Grid Background="White">
+            <ContentControl Content="{Binding CurrentView}" />
+        </Grid>
+    </DockPanel>
+</Window>
