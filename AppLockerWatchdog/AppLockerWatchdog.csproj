@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>dotnet-AppLockerWatchdog-44aee91c-262d-4551-b01a-4b5cb7ab3d34</UserSecretsId>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1"/>
+        <PackageReference Include="System.Management" Version="7.0.2" />
+        <PackageReference Include="System.ServiceProcess.ServiceController" Version="7.0.1" />
+    </ItemGroup>
+</Project>
