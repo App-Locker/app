@@ -23,7 +23,13 @@
     </ItemGroup>
     
     <ItemGroup>
-    <AvaloniaResource Include="Assets/*.svg" />
+    <AvaloniaResource Include="Assets/*" />
+    <None Remove="Assets\lock.png" />
+    <AvaloniaResource Include="Assets\lock.png" />
+    <None Remove="Assets\lockWhite.png" />
+    <AvaloniaResource Include="Assets\lockWhite.png" />
+    <None Remove="Assets\VSCODE.png" />
+    <AvaloniaResource Include="Assets\VSCODE.png" />
     </ItemGroup>
     
     <ItemGroup>

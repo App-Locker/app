@@ -1,5 +1,7 @@
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using AppLockerUI.Views;
 using Avalonia.Controls;
@@ -10,39 +12,73 @@ public class MainWindowViewModel : INotifyPropertyChanged
 {
     private Control? _currentView;
 
-   public Control? CurrentView
+
+    public Control? CurrentView
     {
         get => _currentView;
         set
         {
             _currentView = value;
             OnPropertyChanged();
+            UpdateSelectionFlags();
         }
     }
-    
+
+    public bool IsHomeSelected { get; private set; }
+    public bool IsApplicationsSelected { get; private set; }
+    public bool IsActivitySelected { get; private set; }
+    public bool IsSettingsSelected { get; private set; }
     
     public ICommand NavigateHomeCommand { get; }
     public ICommand NavigateApplicationsCommand { get; }
+    public ICommand NavigateActivityCommand { get; }
+    public ICommand NavigateSettingsCommand { get; }
 
     public MainWindowViewModel()
     {
         NavigateHomeCommand = new RelayCommand(NavigateHome);
         NavigateApplicationsCommand = new RelayCommand(NavigateApplications);
+        NavigateActivityCommand = new RelayCommand(NavigateActivity);
+        NavigateSettingsCommand = new RelayCommand(NavigateSettings);
         NavigateHome();
     }
 
     private void NavigateHome()
     {
-        CurrentView = new HomeView();
+        CurrentView = new Lazy<HomeView>(() => new HomeView()).Value;
     }
 
     private void NavigateApplications()
     {
-        CurrentView = new ApplicationsView();
+        CurrentView = new Lazy<ApplicationsView>(() => new ApplicationsView()).Value;
+    }
+
+    private void NavigateActivity()
+    {
+        CurrentView = new Lazy<ActivitiesView>(() => new ActivitiesView()).Value;
+    }
+
+    private void NavigateSettings()
+    {
+        CurrentView = new Lazy<SettingsView>(() => new SettingsView()).Value;
     }
     
-    public event PropertyChangedEventHandler? PropertyChanged;
     
+
+    private void UpdateSelectionFlags()
+    {
+        IsHomeSelected = CurrentView is HomeView;
+        IsApplicationsSelected = CurrentView is ApplicationsView;
+        IsActivitySelected = CurrentView is ActivitiesView;
+        IsSettingsSelected = CurrentView is SettingsView;
+        OnPropertyChanged(nameof(IsHomeSelected));
+        OnPropertyChanged(nameof(IsApplicationsSelected));
+        OnPropertyChanged(nameof(IsActivitySelected));
+        OnPropertyChanged(nameof(IsSettingsSelected));
+    }
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
     protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
