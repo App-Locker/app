@@ -212,7 +212,13 @@
         </Border>
 
         <Grid Background="#323234">
-            <ContentControl Content="{Binding CurrentView}" />
+            <TransitioningContentControl Content="{Binding CurrentView}">
+                <TransitioningContentControl.PageTransition>
+                 <!--    <CrossFade Duration="0:00:00.25" /> -->
+                 <PageSlide Duration="0:00:00.15" />
+                </TransitioningContentControl.PageTransition>
+            </TransitioningContentControl>
         </Grid>
+
     </DockPanel>
 </Window>

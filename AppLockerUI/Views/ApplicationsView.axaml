@@ -16,9 +16,13 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="0" Margin="0">
-            <Button Command="{Binding RemoveCommand}" IsEnabled="{Binding SelectedItem, Converter={StaticResource NullToBoolConverter}}" 
+            <Button Command="{Binding RemoveCommand}" IsVisible="{Binding SelectedItem, Converter={StaticResource NullToBoolConverter}}" 
                     Width="30" Height="30" Background="Transparent" FontWeight="Bold" Margin="0,0,5,0">
                 <Image Source="{SvgImage avares://AppLockerUI/Assets/minus.svg}" Stretch="Uniform" />
+            </Button>
+            <Button Command="{Binding RemoveCommand}" IsVisible="{Binding SelectedItem, Converter={StaticResource NullToBoolConverter}}" 
+                    Width="30" Height="30" Background="Transparent" FontWeight="Bold" Margin="0,0,5,0">
+                <Image Source="{SvgImage avares://AppLockerUI/Assets/settingsSlide.svg}" Stretch="Uniform" />
             </Button>
             <Button Command="{Binding AddCommand}" Width="30" Height="30" Background="Transparent" FontWeight="Bold">
                 <Image Source="{SvgImage avares://AppLockerUI/Assets/plus.svg}" Stretch="Uniform" />

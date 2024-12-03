@@ -18,6 +18,7 @@ public class MainWindowViewModel : INotifyPropertyChanged
         get => _currentView;
         set
         {
+            if (_currentView == value) return;
             _currentView = value;
             OnPropertyChanged();
             UpdateSelectionFlags();
@@ -45,21 +46,25 @@ public class MainWindowViewModel : INotifyPropertyChanged
 
     private void NavigateHome()
     {
+        if (IsHomeSelected) return;
         CurrentView = new Lazy<HomeView>(() => new HomeView()).Value;
     }
 
     private void NavigateApplications()
     {
+        if (IsApplicationsSelected) return;
         CurrentView = new Lazy<ApplicationsView>(() => new ApplicationsView()).Value;
     }
 
     private void NavigateActivity()
     {
+        if (IsActivitySelected) return;
         CurrentView = new Lazy<ActivitiesView>(() => new ActivitiesView()).Value;
     }
 
     private void NavigateSettings()
     {
+        if (IsSettingsSelected) return;
         CurrentView = new Lazy<SettingsView>(() => new SettingsView()).Value;
     }
     

@@ -20,7 +20,6 @@ public class ApplicationViewModel : INotifyPropertyChanged
         {
             _selectedItem = value;
             OnPropertyChanged(nameof(SelectedItem));
-            // Notify RemoveCommand to re-evaluate its CanExecute state.
             ((RelayCommand)RemoveCommand).RaiseCanExecuteChanged();
         }
     }
