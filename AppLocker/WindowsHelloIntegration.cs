@@ -15,7 +15,6 @@ public class WindowsHelloIntegration
         bool isAvailable = await IsWindowsHelloAvailableAsync();
         if (!isAvailable)
         {
-            MessageBox.Show("Windows Hello is not available on this device.");
             return false;
         }
         var consentResult = await UserConsentVerifier.RequestVerificationAsync("Please verify your identity");

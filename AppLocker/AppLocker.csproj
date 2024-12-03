@@ -4,7 +4,6 @@
         <OutputType>WinExe</OutputType>
         <TargetFramework>net7.0-windows</TargetFramework>
         <Nullable>enable</Nullable>
-        <UseWindowsForms>true</UseWindowsForms>
         <ImplicitUsings>enable</ImplicitUsings>
         <AssemblyName>AppLocker</AssemblyName>
         <RootNamespace>AppLocker</RootNamespace>
@@ -18,11 +17,31 @@
     </PropertyGroup>
     <ItemGroup>
       <PackageReference Include="Appwrite" Version="0.10.1" />
+      <PackageReference Include="Avalonia" Version="11.2.2" />
+      <PackageReference Include="Avalonia.Desktop" Version="11.2.2" />
+      <PackageReference Include="Avalonia.Diagnostics" Version="11.2.2" />
+      <PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.2" />
+      <PackageReference Include="Avalonia.ReactiveUI" Version="11.2.2" />
+      <PackageReference Include="Avalonia.Svg.Skia" Version="11.2.0.2" />
+      <PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.2" />
       <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
       <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
       <PackageReference Include="Microsoft.Windows.Compatibility" Version="7.0.3" />
       <PackageReference Include="System.Management" Version="7.0.2" />
       <PackageReference Include="WindowsContracts.Net.Foundation.UniversalApiContract" Version="5.19041.10" />
+    </ItemGroup>
+    <ItemGroup>
+        <AvaloniaResource Include="AppLockerUI\Assets/*" />
+        <None Remove="AppLockerUI\Assets\lock.png" />
+        <AvaloniaResource Include="AppLockerUI\Assets\lock.png" />
+        <None Remove="AppLockerUI\Assets\lockWhite.png" />
+        <AvaloniaResource Include="AppLockerUI\Assets\lockWhite.png" />
+        <None Remove="AppLockerUI\Assets\VSCODE.png" />
+        <AvaloniaResource Include="AppLockerUI\Assets\VSCODE.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <None Remove="AppLockerUI\Assets\lock.svg" />
+        <Resource Include="AppLockerUI\Assets\lock.svg" />
     </ItemGroup>
     <ItemGroup>
         <None Remove="AppLocker.exe.manifest" />

@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using System.Runtime.CompilerServices;
+using Windows.Security.Authentication.Web.Provider;
 using AppLocker.database_obj;
 using Appwrite;
 using Appwrite.Models;
@@ -9,10 +11,23 @@ namespace AppLocker;
 
 public class BackendClient
 {
+    private static BackendClient instance = null;
+    public static BackendClient Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = new BackendClient();
+            }
+            return instance;
+        }
+    }
     private static Client client;
-    public BackendClient()
+    private BackendClient()
     {
         client = CreateClient();
+        instance = this;
     }
     public static Client CreateClient()
     {
@@ -24,7 +39,12 @@ public class BackendClient
             .SetKey(config["ApiSettings:ApiKey"]);
     }
 
-    public async Task<Document> CreateDataSetAsync(string databaseId, string collectionId, Blocked_App app)
+    public async Task<Session> createUserSession(string email,string password)
+    {
+        var account = new Account(client);
+        return await account.CreateEmailPasswordSession(email, password);
+    }
+    public async Task<Document> CreateDataSetAsync(string databaseId, string collectionId, Blocked_App app, params string[] permissions)
     {
         if (string.IsNullOrEmpty(databaseId))
         {
@@ -64,6 +84,27 @@ public class BackendClient
         catch (Exception ex)
         {
             Console.WriteLine($"An error occurred: {ex.Message}");
+            throw;
+        }
+    }
+
+    public async Task<DocumentList> ReadDataSetAsync(string databaseId, string collectionId,params string[] queries)
+    {
+        var database = new Databases(client);
+        try
+        {
+            var document = await database.ListDocuments(
+                databaseId,
+                collectionId,
+                queries.ToList()
+            );
+                
+            return document;
+        }
+        catch (AppwriteException ex)
+        {
+            Console.WriteLine($"Appwrite error: {ex.Message}");
+            Console.WriteLine($"Response: {ex.Response}");
             throw;
         }
     }

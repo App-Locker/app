@@ -1,10 +1,11 @@
 is_global = true
-build_property.ApplicationManifest = AppLocker.exe.manifest
-build_property.StartupObject = 
-build_property.ApplicationDefaultFont = 
-build_property.ApplicationHighDpiMode = 
-build_property.ApplicationUseCompatibleTextRendering = 
-build_property.ApplicationVisualStyles = 
+build_property.AvaloniaNameGeneratorIsEnabled = true
+build_property.AvaloniaNameGeneratorBehavior = InitializeComponent
+build_property.AvaloniaNameGeneratorDefaultFieldModifier = internal
+build_property.AvaloniaNameGeneratorFilterByPath = *
+build_property.AvaloniaNameGeneratorFilterByNamespace = *
+build_property.AvaloniaNameGeneratorViewFileNamingStrategy = NamespaceAndClassName
+build_property.AvaloniaNameGeneratorAttachDevTools = true
 build_property.TargetFramework = net7.0-windows
 build_property.TargetPlatformMinVersion = 7.0
 build_property.UsingMicrosoftNETSdkWeb = 
@@ -15,3 +16,21 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = AppLocker
 build_property.ProjectDir = C:\Personal\AppLocker\AppLockerWinApp\AppLocker\
+
+[C:/Personal/AppLocker/AppLockerWinApp/AppLocker/AppLockerUI/App.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Personal/AppLocker/AppLockerWinApp/AppLocker/AppLockerUI/MainWindow.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Personal/AppLocker/AppLockerWinApp/AppLocker/AppLockerUI/Views/ActivitiesView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Personal/AppLocker/AppLockerWinApp/AppLocker/AppLockerUI/Views/ApplicationsView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Personal/AppLocker/AppLockerWinApp/AppLocker/AppLockerUI/Views/HomeView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Personal/AppLocker/AppLockerWinApp/AppLocker/AppLockerUI/Views/SettingsView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

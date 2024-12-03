@@ -1,0 +1,224 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:appLockerUi="clr-namespace:AppLocker"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=appLockerUi:MainWindowViewModel, IsDesignTimeCreatable=True}"
+        Width="950" Height="550"
+        x:CompileBindings="True"
+        x:DataType="appLockerUi:MainWindowViewModel"
+        x:Class="AppLocker.MainWindow"
+        Title="AppLockerUI"
+        Name="WindowRoot"
+        Icon="avares://AppLocker/AppLockerUI/Assets/lock.ico">
+    <Window.Resources>
+        <appLockerUi:BoolToWidthConverter x:Key="BoolToWidthConverter" />
+        <appLockerUi:BoolToOpacityConverter x:Key="BoolToOpacityConverter" />
+        <appLockerUi:WindowWidthToSidebarWidthConverter x:Key="WindowWidthToSidebarWidthConverter" />
+        <appLockerUi:SidebarWidthToOpacityConverter x:Key="SidebarWidthToOpacityConverter" />
+        <appLockerUi:SidebarWidthToIsVisibleConverter x:Key="SidebarWidthToIsVisibleConverter" />
+        <appLockerUi:InvertSidebarWidthToOpacityConverter x:Key="InvertSidebarWidthToOpacityConverter"/>
+        <appLockerUi:InvertSidebarWidthToVisibilityConverter x:Key="InvertSidebarWidthToVisibilityConverter" />
+    </Window.Resources>
+    <DockPanel LastChildFill="True">
+        <Border DockPanel.Dock="Left"
+                Width="{Binding ElementName=WindowRoot, Path=Bounds.Width, Converter={StaticResource WindowWidthToSidebarWidthConverter}}"
+                Background="#252526">
+            <Border.Transitions>
+                <Transitions>
+                    <DoubleTransition Property="Width" Duration="0:0:0.3" />
+                </Transitions>
+            </Border.Transitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <!-- Header -->
+                <StackPanel Grid.Row="0">
+                    <Grid>
+                        <Grid>
+                            <TextBlock x:Name="HeaderText"
+                                       Text="AppLocker"
+                                       Foreground="White"
+                                       FontSize="25"
+                                       Margin="20 20 20 50"
+                                       FontWeight="Bold"
+                                       Opacity="{Binding ElementName=WindowRoot, Path=Bounds.Width, Converter={StaticResource SidebarWidthToOpacityConverter}, ConverterParameter=Text}">
+                                <TextBlock.Transitions>
+                                    <Transitions>
+                                        <DoubleTransition Property="Opacity" Duration="0:0:0.3" />
+                                    </Transitions>
+                                </TextBlock.Transitions>
+                            </TextBlock>
+                            <Image x:Name="HeaderImage"
+                                   Source="avares://AppLocker/AppLockerUI/Assets/lockWhite.png"
+                                   Width="40" Height="40"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Margin="20 17 20 44"
+                                   Opacity="{Binding ElementName=WindowRoot, Path=Bounds.Width, Converter={StaticResource InvertSidebarWidthToOpacityConverter}, ConverterParameter=Image}"
+                                   IsVisible="{Binding ElementName=WindowRoot, Path=Bounds.Width, Converter={StaticResource InvertSidebarWidthToVisibilityConverter}, ConverterParameter=Image}">
+                                <Image.Transitions>
+                                    <Transitions>
+                                        <DoubleTransition Property="Opacity" Duration="0:0:0.6" />
+                                    </Transitions>
+                                </Image.Transitions>
+                            </Image>
+                        </Grid>
+                    </Grid>
+                
+
+                    <!-- Home Button -->
+                    <Grid Margin="0 0">
+                        <Border HorizontalAlignment="Left"
+                                Width="{Binding IsHomeSelected, Converter={StaticResource BoolToWidthConverter}}"
+                                Background="White" CornerRadius="0,10,10,0"
+                                Opacity="{Binding IsHomeSelected, Converter={StaticResource BoolToOpacityConverter}}">
+                            <Border.Transitions>
+                                <Transitions>
+                                    <DoubleTransition Property="Width" Duration="0:0:0.3" />
+                                    <DoubleTransition Property="Opacity" Duration="0:0:0.3" />
+                                </Transitions>
+                            </Border.Transitions>
+                        </Border>
+                        <Button Margin="0" Padding="10 20" Foreground="White" Background="Transparent"
+                                HorizontalAlignment="Stretch" Command="{Binding NavigateHomeCommand}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{SvgImage avares://AppLocker/AppLockerUI/Assets/home.svg}" Width="20" Height="20"
+                                       Margin="0 0 10 0" />
+                                <TextBlock Text="Home" VerticalAlignment="Center"
+                                           Opacity="{Binding ElementName=WindowRoot, Path=Bounds.Width, Converter={StaticResource SidebarWidthToOpacityConverter}}">
+                                    <TextBlock.Transitions>
+                                        <Transitions>
+                                            <DoubleTransition Property="Opacity" Duration="0:0:0.3" />
+                                        </Transitions>
+                                    </TextBlock.Transitions>
+                                </TextBlock>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+
+                    <!-- Manage Applications Button -->
+                    <Grid Margin="0 0">
+                        <Border HorizontalAlignment="Left"
+                                Width="{Binding IsApplicationsSelected, Converter={StaticResource BoolToWidthConverter}}"
+                                Background="White" CornerRadius="0,10,10,0"
+                                Opacity="{Binding IsApplicationsSelected, Converter={StaticResource BoolToOpacityConverter}}">
+                            <Border.Transitions>
+                                <Transitions>
+                                    <DoubleTransition Property="Width" Duration="0:0:0.3" />
+                                    <DoubleTransition Property="Opacity" Duration="0:0:0.3" />
+                                </Transitions>
+                            </Border.Transitions>
+                        </Border>
+                        <Button Margin="0" Padding="10 20" Foreground="White" Background="Transparent"
+                                HorizontalAlignment="Stretch" Command="{Binding NavigateApplicationsCommand}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{SvgImage avares://AppLocker/AppLockerUI/Assets/applications.svg}" Width="20" Height="20"
+                                       Margin="0 0 10 0" />
+                                <TextBlock Text="Manage Applications" VerticalAlignment="Center"
+                                           Opacity="{Binding ElementName=WindowRoot, Path=Bounds.Width, Converter={StaticResource SidebarWidthToOpacityConverter}}">
+                                    <TextBlock.Transitions>
+                                        <Transitions>
+                                            <DoubleTransition Property="Opacity" Duration="0:0:0.3" />
+                                        </Transitions>
+                                    </TextBlock.Transitions>
+                                </TextBlock>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+
+                    <!-- Activity Log Button -->
+                    <Grid Margin="0 0">
+                        <Border HorizontalAlignment="Left"
+                                Width="{Binding IsActivitySelected, Converter={StaticResource BoolToWidthConverter}}"
+                                Background="White" CornerRadius="0,10,10,0"
+                                Opacity="{Binding IsActivitySelected, Converter={StaticResource BoolToOpacityConverter}}">
+                            <Border.Transitions>
+                                <Transitions>
+                                    <DoubleTransition Property="Width" Duration="0:0:0.3" />
+                                    <DoubleTransition Property="Opacity" Duration="0:0:0.3" />
+                                </Transitions>
+                            </Border.Transitions>
+                        </Border>
+                        <Button Margin="0" Padding="10 20" Foreground="White" Background="Transparent"
+                                HorizontalAlignment="Stretch" Command="{Binding NavigateActivityCommand}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{SvgImage avares://AppLocker/AppLockerUI/Assets/stats.svg}" Width="20" Height="20"
+                                       Margin="0 0 10 0" />
+                                <TextBlock Text="Activity Log" VerticalAlignment="Center"
+                                           Opacity="{Binding ElementName=WindowRoot, Path=Bounds.Width, Converter={StaticResource SidebarWidthToOpacityConverter}}">
+                                    <TextBlock.Transitions>
+                                        <Transitions>
+                                            <DoubleTransition Property="Opacity" Duration="0:0:0.3" />
+                                        </Transitions>
+                                    </TextBlock.Transitions>
+                                </TextBlock>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+
+                    <!-- Settings Button -->
+                    <Grid Margin="0 0">
+                        <Border HorizontalAlignment="Left"
+                                Width="{Binding IsSettingsSelected, Converter={StaticResource BoolToWidthConverter}}"
+                                Background="White" CornerRadius="0,10,10,0"
+                                Opacity="{Binding IsSettingsSelected, Converter={StaticResource BoolToOpacityConverter}}">
+                            <Border.Transitions>
+                                <Transitions>
+                                    <DoubleTransition Property="Width" Duration="0:0:0.3" />
+                                    <DoubleTransition Property="Opacity" Duration="0:0:0.3" />
+                                </Transitions>
+                            </Border.Transitions>
+                        </Border>
+                        <Button Margin="0" Padding="10 20" Foreground="White" Background="Transparent"
+                                HorizontalAlignment="Stretch" Command="{Binding NavigateSettingsCommand}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{SvgImage avares://AppLocker/AppLockerUI/Assets/settings.svg}" Width="20" Height="20"
+                                       Margin="0 0 10 0" />
+                                <TextBlock Text="Settings" VerticalAlignment="Center"
+                                           Opacity="{Binding ElementName=WindowRoot, Path=Bounds.Width, Converter={StaticResource SidebarWidthToOpacityConverter}}">
+                                    <TextBlock.Transitions>
+                                        <Transitions>
+                                            <DoubleTransition Property="Opacity" Duration="0:0:0.3" />
+                                        </Transitions>
+                                    </TextBlock.Transitions>
+                                </TextBlock>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </StackPanel>
+
+                <!-- Profile Button -->
+                <Button Grid.Row="2" Margin="0" Padding="10 20" Foreground="White" Background="Transparent"
+                        HorizontalAlignment="Stretch">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{SvgImage avares://AppLocker/AppLockerUI/Assets/profile.svg}" Width="20" Height="20"
+                               Margin="0 0 10 0" />
+                        <TextBlock Text="Your Account" VerticalAlignment="Center"
+                                   Opacity="{Binding ElementName=WindowRoot, Path=Bounds.Width, Converter={StaticResource SidebarWidthToOpacityConverter}}">
+                            <TextBlock.Transitions>
+                                <Transitions>
+                                    <DoubleTransition Property="Opacity" Duration="0:0:0.3" />
+                                </Transitions>
+                            </TextBlock.Transitions>
+                        </TextBlock>
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </Border>
+
+        <Grid Background="#323234">
+            <TransitioningContentControl Content="{Binding CurrentView}">
+                <TransitioningContentControl.PageTransition>
+                    <!--    <CrossFade Duration="0:00:00.25" /> -->
+                    <PageSlide Duration="0:00:00.15" />
+                </TransitioningContentControl.PageTransition>
+            </TransitioningContentControl>
+        </Grid>
+    </DockPanel>
+</Window>

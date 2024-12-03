@@ -21,6 +21,7 @@ public class AppLocker
         "Spotify.exe"
     };
 
+    public static bool isOnline = false;
     private static readonly Queue<string> QueueAppsToAuthenticate = new Queue<string>();
     private static bool _isWindowsHelloOpen = false;
     
