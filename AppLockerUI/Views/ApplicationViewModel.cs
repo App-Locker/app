@@ -1,18 +1,28 @@
-namespace AppLockerUI.Views;
-
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
 using Avalonia.Media.Imaging;
 
+namespace AppLockerUI.Views;
+
 public class ApplicationViewModel : INotifyPropertyChanged
 {
+    private ItemViewModel? _selectedItem;
+
+    public ApplicationViewModel()
+    {
+        AddCommand = new RelayCommand(() => AddItem(new Bitmap("../../../Assets/lockWhite.png"), "VSCODE"));
+        RemoveCommand = new RelayCommand(
+            () => RemoveItem(SelectedItem),
+            () => SelectedItem != null
+        );
+    }
+
     public ObservableCollection<ItemViewModel> Items { get; set; } = new();
 
     public ICommand AddCommand { get; }
     public ICommand RemoveCommand { get; }
 
-    private ItemViewModel? _selectedItem;
     public ItemViewModel? SelectedItem
     {
         get => _selectedItem;
@@ -24,25 +34,21 @@ public class ApplicationViewModel : INotifyPropertyChanged
         }
     }
 
-    public void AddItem(Bitmap image, string text) => Items.Add(new ItemViewModel { Image = image, Text = text });
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    public void AddItem(Bitmap image, string text)
+    {
+        Items.Add(new ItemViewModel { Image = image, Text = text });
+    }
 
     public void RemoveItem(ItemViewModel? item)
     {
         if (item != null) Items.Remove(item);
     }
 
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    protected void OnPropertyChanged(string propertyName) =>
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
-    public ApplicationViewModel()
+    protected void OnPropertyChanged(string propertyName)
     {
-        AddCommand = new RelayCommand(() => AddItem(new Bitmap("../../../Assets/lockWhite.png"), "VSCODE"));
-        RemoveCommand = new RelayCommand(
-            () => RemoveItem(SelectedItem),
-            () => SelectedItem != null
-        );
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }
 

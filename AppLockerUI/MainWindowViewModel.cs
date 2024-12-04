@@ -1,16 +1,28 @@
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using AppLockerUI.Views;
 using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
 
 namespace AppLockerUI;
 
 public class MainWindowViewModel : INotifyPropertyChanged
 {
     private Control? _currentView;
+    private LoginView? _loginView;
+
+
+    public MainWindowViewModel()
+    {
+        NavigateHomeCommand = new RelayCommand(NavigateHome);
+        NavigateApplicationsCommand = new RelayCommand(NavigateApplications);
+        NavigateActivityCommand = new RelayCommand(NavigateActivity);
+        NavigateSettingsCommand = new RelayCommand(NavigateSettings);
+        LoginCallCommand = new RelayCommand(LoginCall);
+        NavigateHome();
+    }
 
 
     public Control? CurrentView
@@ -29,20 +41,14 @@ public class MainWindowViewModel : INotifyPropertyChanged
     public bool IsApplicationsSelected { get; private set; }
     public bool IsActivitySelected { get; private set; }
     public bool IsSettingsSelected { get; private set; }
-    
+
     public ICommand NavigateHomeCommand { get; }
     public ICommand NavigateApplicationsCommand { get; }
     public ICommand NavigateActivityCommand { get; }
     public ICommand NavigateSettingsCommand { get; }
+    public ICommand LoginCallCommand { get; }
 
-    public MainWindowViewModel()
-    {
-        NavigateHomeCommand = new RelayCommand(NavigateHome);
-        NavigateApplicationsCommand = new RelayCommand(NavigateApplications);
-        NavigateActivityCommand = new RelayCommand(NavigateActivity);
-        NavigateSettingsCommand = new RelayCommand(NavigateSettings);
-        NavigateHome();
-    }
+    public event PropertyChangedEventHandler? PropertyChanged;
 
     private void NavigateHome()
     {
@@ -67,8 +73,38 @@ public class MainWindowViewModel : INotifyPropertyChanged
         if (IsSettingsSelected) return;
         CurrentView = new Lazy<SettingsView>(() => new SettingsView()).Value;
     }
-    
-    
+
+    public async void LoginCall()
+    {
+        if (_loginView == null || !_loginView.IsVisible) _loginView = new LoginView();
+
+        var loginContent = new LoginContent
+        {
+            DataContext = new LoginContentViewModel(ShowRegistration)
+        };
+
+        _loginView.Content = loginContent;
+
+        if (!_loginView.IsVisible)
+            await _loginView.ShowDialog(
+                App.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop
+                    ? desktop.MainWindow
+                    : null);
+    }
+
+    private void ShowRegistration()
+    {
+        if (_loginView == null)
+            return;
+
+        var registrationContent = new RegisterView
+        {
+            DataContext = new RegistrationContentViewModel(LoginCall)
+        };
+
+        _loginView.Content = registrationContent;
+    }
+
 
     private void UpdateSelectionFlags()
     {
@@ -81,8 +117,6 @@ public class MainWindowViewModel : INotifyPropertyChanged
         OnPropertyChanged(nameof(IsActivitySelected));
         OnPropertyChanged(nameof(IsSettingsSelected));
     }
-
-    public event PropertyChangedEventHandler? PropertyChanged;
 
     protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {

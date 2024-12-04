@@ -9,32 +9,39 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Avalonia" Version="11.2.2" />
-        <PackageReference Include="Avalonia.Desktop" Version="11.2.2" />
-        <PackageReference Include="Avalonia.ReactiveUI" Version="11.2.2" />
-        <PackageReference Include="Avalonia.Svg.Skia" Version="11.2.0.2" />
-        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.1" />
-        <PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.1" />
+        <PackageReference Include="Avalonia" Version="11.2.2"/>
+        <PackageReference Include="Avalonia.Desktop" Version="11.2.2"/>
+        <PackageReference Include="Avalonia.ReactiveUI" Version="11.2.2"/>
+        <PackageReference Include="Avalonia.Svg.Skia" Version="11.2.0.2"/>
+        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.1"/>
+        <PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.1"/>
         <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
         <PackageReference Include="Avalonia.Diagnostics" Version="11.2.1">
             <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
             <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
         </PackageReference>
     </ItemGroup>
-    
+
     <ItemGroup>
-    <AvaloniaResource Include="Assets/*" />
-    <None Remove="Assets\lock.png" />
-    <AvaloniaResource Include="Assets\lock.png" />
-    <None Remove="Assets\lockWhite.png" />
-    <AvaloniaResource Include="Assets\lockWhite.png" />
-    <None Remove="Assets\VSCODE.png" />
-    <AvaloniaResource Include="Assets\VSCODE.png" />
+        <AvaloniaResource Include="Assets/*"/>
+        <None Remove="Assets\lock.png"/>
+        <AvaloniaResource Include="Assets\lock.png"/>
+        <None Remove="Assets\lockWhite.png"/>
+        <AvaloniaResource Include="Assets\lockWhite.png"/>
+        <None Remove="Assets\VSCODE.png"/>
+        <AvaloniaResource Include="Assets\VSCODE.png"/>
     </ItemGroup>
-    
+
     <ItemGroup>
-      <None Remove="Assets\lock.svg" />
-      <Resource Include="Assets\lock.svg" />
+        <None Remove="Assets\lock.svg"/>
+        <Resource Include="Assets\lock.svg"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Update="Views\RegistrationContent.axaml.cs">
+            <DependentUpon>RegistrationView.axaml</DependentUpon>
+            <SubType>Code</SubType>
+        </Compile>
     </ItemGroup>
 
 </Project>

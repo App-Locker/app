@@ -1,0 +1,31 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:views="clr-namespace:AppLockerUI.Views"
+             mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="500"
+             x:DataType="views:RegistrationContentViewModel"
+             x:Class="AppLockerUI.Views.RegisterView">
+    <Grid RowDefinitions="*,Auto,*,Auto" ColumnDefinitions="1*,1*,1*" Background="#1E1E1E">
+        <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+               Source="avares://AppLockerUI/Assets/AppLockerLandscape.png"
+               HorizontalAlignment="Center" Margin="0,20,0,0"
+               Stretch="Uniform"
+               Width="300" />
+        <StackPanel Grid.Row="2" Grid.Column="1" Spacing="10" HorizontalAlignment="Center">
+            <TextBox Width="300" Watermark="Email" Background="#2D2D2D" Foreground="White" />
+            <TextBox Width="300" Watermark="Password" PasswordChar="*" Background="#2D2D2D" Foreground="White" />
+            <TextBox Width="300" Watermark="Confirm Password" PasswordChar="*" Background="#2D2D2D" Foreground="White" />
+            <Button Width="300" Content="Register" HorizontalAlignment="Center" Background="#505050" Foreground="White"
+                    HorizontalContentAlignment="Center" />
+        </StackPanel>
+        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" Spacing="20"
+                    HorizontalAlignment="Center" Margin="0,0,0,20">
+            <Button Content="Login" Width="140" Background="#505050" Foreground="White"
+                    HorizontalContentAlignment="Center"
+                    Command="{Binding LoginCallCommand}" />
+            <Button Content="OAuth Login" Width="140" Background="#505050" Foreground="White"
+                    HorizontalContentAlignment="Center" />
+        </StackPanel>
+    </Grid>
+</UserControl>

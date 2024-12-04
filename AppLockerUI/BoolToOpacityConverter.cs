@@ -16,4 +16,3 @@ public class BoolToOpacityConverter : IValueConverter
         throw new NotImplementedException();
     }
 }
-
