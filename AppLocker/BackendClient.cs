@@ -1,11 +1,11 @@
-﻿using System.Collections;
-using System.Runtime.CompilerServices;
-using Windows.Security.Authentication.Web.Provider;
+﻿using System.Drawing;
+using System.Drawing.Imaging;
 using AppLocker.database_obj;
 using Appwrite;
 using Appwrite.Models;
 using Appwrite.Services;
 using Microsoft.Extensions.Configuration;
+using File = Appwrite.Models.File;
 
 namespace AppLocker;
 
@@ -23,10 +23,17 @@ public class BackendClient
             return instance;
         }
     }
-    private static Client client;
+    private static Client Client;
+
+    public Session Session
+    {
+        get;
+        private set;
+    }
+
     private BackendClient()
     {
-        client = CreateClient();
+        Client = CreateClient();
         instance = this;
     }
     public static Client CreateClient()
@@ -39,10 +46,10 @@ public class BackendClient
             .SetKey(config["ApiSettings:ApiKey"]);
     }
 
-    public async Task<Session> createUserSession(string email,string password)
+    public async void CreateUserSession(string email,string password)
     {
-        var account = new Account(client);
-        return await account.CreateEmailPasswordSession(email, password);
+        var account = new Account(Client);
+        Session = await account.CreateEmailPasswordSession(email, password);
     }
     public async Task<Document> CreateDataSetAsync(string databaseId, string collectionId, Blocked_App app, params string[] permissions)
     {
@@ -61,14 +68,15 @@ public class BackendClient
             throw new ArgumentException("Data cannot be null or empty", nameof(app));
         }
 
-        var database = new Databases(client);
+        var database = new Databases(Client);
         try
         {
             var document = await database.CreateDocument(
                 databaseId,
                 collectionId,
                 ID.Unique(),
-                app.dictionary
+                app.dictionary,
+                permissions.ToList()
             );
 
             Console.WriteLine("Document created successfully:");
@@ -90,7 +98,7 @@ public class BackendClient
 
     public async Task<DocumentList> ReadDataSetAsync(string databaseId, string collectionId,params string[] queries)
     {
-        var database = new Databases(client);
+        var database = new Databases(Client);
         try
         {
             var document = await database.ListDocuments(
@@ -106,6 +114,35 @@ public class BackendClient
             Console.WriteLine($"Appwrite error: {ex.Message}");
             Console.WriteLine($"Response: {ex.Response}");
             throw;
+        }
+    }
+
+    public async Task<File> AddFileToBucket(string bucketID,Icon file,string fileName,params string[] permissions)
+    {
+        using (Bitmap bitmap = file.ToBitmap())
+        {
+            // Convert the bitmap to a byte array
+            byte[] bitmapBytes = GetBytesFromBitmap(bitmap);
+
+            Storage storage = new Storage(Client);
+            return await storage.CreateFile(
+                bucketID,
+                ID.Unique(),
+                InputFile.FromBytes(bitmapBytes,fileName,".ico"),
+                permissions.ToList()
+            );
+        }
+       
+    }
+    static byte[] GetBytesFromBitmap(Bitmap bitmap)
+    {
+        using (MemoryStream ms = new MemoryStream())
+        {
+            // Save the bitmap to the memory stream in a specific format (e.g., PNG)
+            bitmap.Save(ms, ImageFormat.Png);
+
+            // Return the byte array
+            return ms.ToArray();
         }
     }
 }

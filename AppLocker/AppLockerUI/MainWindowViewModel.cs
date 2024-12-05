@@ -1,10 +1,13 @@
+using System;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using AppLocker.Views;
 using Appwrite;
 using Appwrite.Models;
 using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
 using Newtonsoft.Json;
 
 namespace AppLocker;
@@ -12,7 +15,7 @@ namespace AppLocker;
 public class MainWindowViewModel : INotifyPropertyChanged
 {
     private Control? _currentView;
-
+    private LoginView? _loginView;
 
     public Control? CurrentView
     {
@@ -35,15 +38,17 @@ public class MainWindowViewModel : INotifyPropertyChanged
     public ICommand NavigateApplicationsCommand { get; }
     public ICommand NavigateActivityCommand { get; }
     public ICommand NavigateSettingsCommand { get; }
+    public ICommand LoginCallCommand { get; }
 
+    public event PropertyChangedEventHandler? PropertyChanged;
     public MainWindowViewModel()
     {
         NavigateHomeCommand = new RelayCommand(NavigateHome);
         NavigateApplicationsCommand = new RelayCommand(NavigateApplications);
         NavigateActivityCommand = new RelayCommand(NavigateActivity);
         NavigateSettingsCommand = new RelayCommand(NavigateSettings);
+        LoginCallCommand = new RelayCommand(LoginCall);
         NavigateHome();
-        loadOnlineAppsIntoFile();
     }
 
     private async void loadOnlineAppsIntoFile()
@@ -52,11 +57,11 @@ public class MainWindowViewModel : INotifyPropertyChanged
         string password = "test1234";
         try
         {
-            Session session = await BackendClient.Instance.createUserSession(email, password);
+            BackendClient.Instance.CreateUserSession(email, password);
             DocumentList list = await BackendClient.Instance.ReadDataSetAsync(
                 "673f05bc0006477e6b18",
                 "673f05f800123ce12c32",
-                Query.Equal("user_id",session.UserId));
+                Query.Equal("user_id",BackendClient.Instance.Session.UserId));
             var json = JsonConvert.SerializeObject(list.Documents, Formatting.Indented);
             string filePath = "locked_apps.json";
             string appDataPath = Path.Combine(
@@ -80,6 +85,30 @@ public class MainWindowViewModel : INotifyPropertyChanged
     {
         if (IsHomeSelected) return;
         CurrentView = new Lazy<HomeView>(() => new HomeView()).Value;
+    }
+    public async void LoginCall()
+    {
+        if (_loginView == null || !_loginView.IsVisible) _loginView = new LoginView();
+        var loginContent = new LoginContent
+        {
+            DataContext = new LoginContentViewModel(ShowRegistration)
+        };
+        _loginView.Content = loginContent;
+        if (!_loginView.IsVisible)
+            await _loginView.ShowDialog(
+                App.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop
+                    ? desktop.MainWindow
+                    : null);
+    }
+    private void ShowRegistration()
+    {
+        if (_loginView == null)
+            return;
+        var registrationContent = new RegisterView
+        {
+            DataContext = new RegistrationContentViewModel(LoginCall)
+        };
+        _loginView.Content = registrationContent;
     }
 
     private void NavigateApplications()
@@ -111,7 +140,6 @@ public class MainWindowViewModel : INotifyPropertyChanged
         OnPropertyChanged(nameof(IsActivitySelected));
         OnPropertyChanged(nameof(IsSettingsSelected));
     }
-    public event PropertyChangedEventHandler? PropertyChanged;
 
     protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {

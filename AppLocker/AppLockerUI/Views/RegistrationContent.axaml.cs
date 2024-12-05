@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace AppLocker.Views;
 
-public partial class HomeView : UserControl
+public partial class RegisterView : UserControl
 {
-    public HomeView()
+    public RegisterView()
     {
         InitializeComponent();
     }

@@ -96,6 +96,7 @@ public class AppLocker
         string? appName = targetInstance.Properties["Name"].Value.ToString();
         //TODO: USE EXEPATH FOR BACKEND
         string? exePath = targetInstance.Properties["ExecutablePath"].Value.ToString();
+        Console.WriteLine(exePath);
         Console.WriteLine(appName);
         // Check if the app is blocked
         if (!LockedApps.Contains(appName)) return;

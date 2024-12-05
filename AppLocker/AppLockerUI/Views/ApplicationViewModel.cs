@@ -24,14 +24,16 @@ public class ApplicationViewModel : INotifyPropertyChanged
         }
     }
 
-    public void AddItem(Bitmap image, string text) => Items.Add(new ItemViewModel { Image = image, Text = text });
+    public event PropertyChangedEventHandler? PropertyChanged;
+    public void AddItem(Bitmap image, string text)
+    {
+        Items.Add(new ItemViewModel { Image = image, Text = text });
+    }
 
     public void RemoveItem(ItemViewModel? item)
     {
         if (item != null) Items.Remove(item);
     }
-    
-    public event PropertyChangedEventHandler? PropertyChanged;
 
     protected void OnPropertyChanged(string propertyName) =>
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

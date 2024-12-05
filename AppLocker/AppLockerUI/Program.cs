@@ -4,7 +4,7 @@ using Avalonia.Svg.Skia;
 
 namespace AppLocker;
 
-class Program
+internal class Program
 {
     // Initialization code. Don't use any Avalonia, third-party APIs or any
     // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
@@ -33,7 +33,8 @@ class Program
     //     Blocked_App app = new Blocked_App("Test", "10");
     //     try
     //     {
-    //         var document = await client.CreateDataSetAsync("673f05bc0006477e6b18", "673f05f800123ce12c32", app);
+    //         var document = await client.Cre
+    // ateDataSetAsync("673f05bc0006477e6b18", "673f05f800123ce12c32", app);
     //         Console.WriteLine("Created document ID: " + document.Id);
     //     }
     //     catch (Exception ex)
