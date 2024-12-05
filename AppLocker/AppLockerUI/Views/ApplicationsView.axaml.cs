@@ -32,9 +32,9 @@ public partial class ApplicationsView : UserControl
             //writer.WriteLine(viewModel.Items);
         }
         //TODO: CHANGE FILEPATH
-        saveIcons("");
+        // saveIcons("");
     }
-
+    
     private void saveIcons(string filepath)
     {
         int newHeight = 100;
@@ -78,6 +78,5 @@ public partial class ApplicationsView : UserControl
         Directory.CreateDirectory(appDataPath);
         string jsonString = File.ReadAllText(Path.Combine(appDataPath, "locked_apps.json"));
         List<Document> documents = JsonConvert.DeserializeObject<List<Document>>(jsonString);
-        documents.ForEach(Console.WriteLine);
     }
 }

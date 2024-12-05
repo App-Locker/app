@@ -12,15 +12,18 @@
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="0" Margin="0">
-            <Button Command="{Binding RemoveCommand}" IsVisible="{Binding SelectedItem, Converter={StaticResource NullToBoolConverter}}" 
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="0"
+                    Margin="0">
+            <Button Command="{Binding RemoveCommand}"
+                    IsVisible="{Binding SelectedItem, Converter={StaticResource NullToBoolConverter}}"
                     Width="30" Height="30" Background="Transparent" FontWeight="Bold" Margin="0,0,5,0">
                 <Image Source="{SvgImage avares://AppLocker/AppLockerUI/Assets/minus.svg}" Stretch="Uniform" />
             </Button>
-            <Button Command="{Binding RemoveCommand}" IsVisible="{Binding SelectedItem, Converter={StaticResource NullToBoolConverter}}" 
+            <Button Command="{Binding RemoveCommand}"
+                    IsVisible="{Binding SelectedItem, Converter={StaticResource NullToBoolConverter}}"
                     Width="30" Height="30" Background="Transparent" FontWeight="Bold" Margin="0,0,5,0">
                 <Image Source="{SvgImage avares://AppLocker/AppLockerUI/Assets/settingsSlide.svg}" Stretch="Uniform" />
             </Button>
@@ -29,25 +32,25 @@
             </Button>
         </StackPanel>
 
-      
+
         <ScrollViewer Grid.Row="1">
             <ListBox ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel/>
+                        <WrapPanel />
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Margin="10" HorizontalAlignment="Center">
-                            <Image Source="{Binding Image}" Width="100" Height="100"/>
-                            <TextBlock Text="{Binding Text}" HorizontalAlignment="Center"/>
+                            <Image Source="{Binding Image}" Width="100" Height="100" />
+                            <TextBlock Text="{Binding Text}" HorizontalAlignment="Center" />
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
                 <ListBox.Styles>
                     <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
-                        <Setter Property="Background" Value="#3b3a3a"/>	
+                        <Setter Property="Background" Value="#3b3a3a" />
                     </Style>
                 </ListBox.Styles>
             </ListBox>

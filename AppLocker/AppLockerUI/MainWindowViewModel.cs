@@ -1,6 +1,4 @@
-using System;
 using System.ComponentModel;
-using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using AppLocker.Views;
@@ -113,7 +111,6 @@ public class MainWindowViewModel : INotifyPropertyChanged
 
     private void NavigateApplications()
     {
-        if (IsApplicationsSelected) return;
         CurrentView = new Lazy<ApplicationsView>(() => new ApplicationsView()).Value;
     }
 
