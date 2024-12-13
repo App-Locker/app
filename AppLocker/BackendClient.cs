@@ -11,30 +11,44 @@ namespace AppLocker;
 
 public class BackendClient
 {
-    private static BackendClient instance = null;
+    private static BackendClient _instance = null;
     public static BackendClient Instance
     {
         get
         {
-            if (instance == null)
+            if (_instance == null)
             {
-                instance = new BackendClient();
+                _instance = new BackendClient();
             }
-            return instance;
+            return _instance;
         }
     }
+    private bool _isLoggedIn { get; set; }
+
+    public bool isLoggedIn
+    {
+        get => _isLoggedIn;
+        private set
+        {
+            if (_isLoggedIn != value)
+            {
+                _isLoggedIn = value;
+            }
+        }
+    }
+
     private static Client Client;
 
     public Session Session
     {
         get;
-        private set;
+        set;
     }
 
     private BackendClient()
     {
         Client = CreateClient();
-        instance = this;
+        _instance = this;
     }
     public static Client CreateClient()
     {
@@ -46,10 +60,29 @@ public class BackendClient
             .SetKey(config["ApiSettings:ApiKey"]);
     }
 
-    public async void CreateUserSession(string email,string password)
+    public static bool isValidSession(Session session)
     {
-        var account = new Account(Client);
-        Session = await account.CreateEmailPasswordSession(email, password);
+        if (Instance == null)
+            BackendClient.CreateClient();
+        Account account = new Account(Client);
+        return account.GetSession(session.Id) != null;
+    }
+    public async Task CreateUserSession(string email,string password)
+    {
+        try
+        {
+            if(isLoggedIn) return;
+            var account = new Account(Client);
+            Session = await account.CreateEmailPasswordSession(email, password);
+            isLoggedIn = true;
+        }
+        catch (AppwriteException e)
+        {
+            Console.WriteLine(e.Message);
+            isLoggedIn = false;
+        }
+       
+        
     }
     public async Task<Document> CreateDataSetAsync(string databaseId, string collectionId, Blocked_App app, params string[] permissions)
     {

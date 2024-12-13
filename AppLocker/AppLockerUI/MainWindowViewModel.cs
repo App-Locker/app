@@ -49,36 +49,6 @@ public class MainWindowViewModel : INotifyPropertyChanged
         NavigateHome();
     }
 
-    private async void loadOnlineAppsIntoFile()
-    {
-        string email = "test@test.test";
-        string password = "test1234";
-        try
-        {
-            BackendClient.Instance.CreateUserSession(email, password);
-            DocumentList list = await BackendClient.Instance.ReadDataSetAsync(
-                "673f05bc0006477e6b18",
-                "673f05f800123ce12c32",
-                Query.Equal("user_id",BackendClient.Instance.Session.UserId));
-            var json = JsonConvert.SerializeObject(list.Documents, Formatting.Indented);
-            string filePath = "locked_apps.json";
-            string appDataPath = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), 
-                "AppLocker"
-            );
-            Directory.CreateDirectory(appDataPath); // Ensure the directory exists
-            using (StreamWriter writer = new StreamWriter(Path.Combine(appDataPath,filePath)))
-            {
-                writer.WriteLine(json);
-            }
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine($"{e.Message}: {e.Data}");   
-        }
-
-    }
-
     private void NavigateHome()
     {
         if (IsHomeSelected) return;
