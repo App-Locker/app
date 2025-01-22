@@ -93,7 +93,7 @@ public class MainWindowViewModel : INotifyPropertyChanged
     private void NavigateSettings()
     {
         if (IsSettingsSelected) return;
-        CurrentView = new Lazy<SettingsView>(() => new SettingsView()).Value;
+       // CurrentView = new Lazy<SettingsView>(() => new SettingsView()).Value;
     }
     
     private void UpdateSelectionFlags()
@@ -101,7 +101,7 @@ public class MainWindowViewModel : INotifyPropertyChanged
         IsHomeSelected = CurrentView is HomeView;
         IsApplicationsSelected = CurrentView is ApplicationsView;
         IsActivitySelected = CurrentView is ActivitiesView;
-        IsSettingsSelected = CurrentView is SettingsView;
+       //IsSettingsSelected = CurrentView is SettingsView;
         OnPropertyChanged(nameof(IsHomeSelected));
         OnPropertyChanged(nameof(IsApplicationsSelected));
         OnPropertyChanged(nameof(IsActivitySelected));

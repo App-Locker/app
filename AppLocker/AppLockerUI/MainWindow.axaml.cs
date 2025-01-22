@@ -1,3 +1,5 @@
+
+using AppLocker.Views;
 using Appwrite;
 using Appwrite.Models;
 using Avalonia.Controls;

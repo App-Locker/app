@@ -69,6 +69,7 @@ public partial class ApplicationsView : UserControl
             Console.WriteLine($"Error resizing icon: {ex.Message}");
         }
     }
+
     protected override void OnInitialized()
     {
         string appDataPath = Path.Combine(
@@ -76,7 +77,10 @@ public partial class ApplicationsView : UserControl
             "AppLocker"
         );
         Directory.CreateDirectory(appDataPath);
-        string jsonString = File.ReadAllText(Path.Combine(appDataPath, "locked_apps.json"));
-        List<Document> documents = JsonConvert.DeserializeObject<List<Document>>(jsonString);
+        if (File.Exists(Path.Combine(appDataPath, "locked_apps.json")))
+        {
+            string jsonString = File.ReadAllText(Path.Combine(appDataPath, "locked_apps.json"));
+            List<Document> documents = JsonConvert.DeserializeObject<List<Document>>(jsonString);
+        }
     }
 }
