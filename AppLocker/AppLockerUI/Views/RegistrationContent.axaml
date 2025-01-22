@@ -13,11 +13,11 @@
                Stretch="Uniform"
                Width="300" />
         <StackPanel Grid.Row="2" Grid.Column="1" Spacing="10" HorizontalAlignment="Center">
-            <TextBox Width="300" Watermark="Email" Background="#2D2D2D" Foreground="White" />
-            <TextBox Width="300" Watermark="Password" PasswordChar="*" Background="#2D2D2D" Foreground="White" />
-            <TextBox Width="300" Watermark="Confirm Password" PasswordChar="*" Background="#2D2D2D" Foreground="White" />
+            <TextBox Width="300" Watermark="Email" Background="#2D2D2D" Foreground="White" Text="{Binding EmailText, Mode=TwoWay}" />
+            <TextBox Width="300" Watermark="Password" PasswordChar="*" Background="#2D2D2D" Foreground="White" Text="{Binding PasswordText, Mode=TwoWay}"/>
+            <TextBox Width="300" Watermark="Confirm Password" PasswordChar="*" Background="#2D2D2D" Foreground="White" Text="{Binding PasswordConfirmText, Mode=TwoWay}" />
             <Button Width="300" Content="Register" HorizontalAlignment="Center" Background="#505050" Foreground="White"
-                    HorizontalContentAlignment="Center" />
+                    HorizontalContentAlignment="Center" Command="{Binding RegisterCommand}"/>
         </StackPanel>
         <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" Spacing="20"
                     HorizontalAlignment="Center" Margin="0,0,0,20">

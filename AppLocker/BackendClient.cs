@@ -128,6 +128,29 @@ public class BackendClient
             throw;
         }
     }
+    public static async Task CreateUserAsync(string email,string password)
+    {
+        // Initialize Appwrite Users service
+        var usersService = new Users(Client);
+
+        try
+        {
+            // User data
+            // Create user
+            User createdUser = await usersService.CreateBcryptUser(
+                ID.Unique(),
+                email,
+                password
+            );
+
+            // Output created user details
+            Console.WriteLine($"User created: {createdUser.Id}, {createdUser.Email}");
+        }
+        catch (AppwriteException ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+        }
+    }
 
     public async Task<DocumentList> ReadDataSetAsync(string databaseId, string collectionId,params string[] queries)
     {
