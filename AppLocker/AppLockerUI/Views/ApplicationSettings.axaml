@@ -12,45 +12,90 @@
         Background="#323234">
     <Window.Styles>
         <Style Selector="Expander">
-            <Setter Property="MinHeight" Value="24"/>
-            <Setter Property="CornerRadius" Value="0"/>
+            <Setter Property="MinHeight" Value="24" />
+            <Setter Property="CornerRadius" Value="0" />
         </Style>
-        
+
         <Style Selector="Expander /template/ ToggleButton#ExpanderHeader">
-            <Setter Property="Height" Value="26"/>
-            <Setter Property="Padding" Value="4"/>
-            <Setter Property="FontSize" Value="12"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Background" Value="#262628"/>
-            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Height" Value="26" />
+            <Setter Property="Padding" Value="4" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Background" Value="#262628" />
+            <Setter Property="BorderThickness" Value="0" />
         </Style>
-        
+
         <Style Selector="Expander /template/ ContentPresenter">
-            <Setter Property="Padding" Value="0"/>
-            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+
+        <Style Selector="Expander:down /template/ Border#ExpanderContent">
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Background" Value="Transparent" />
         </Style>
         
-        <Style Selector="Expander:down /template/ Border#ExpanderContent">
-            <Setter Property="BorderThickness" Value="0"/>
+        <Style Selector="Path">
+            <Setter Property="Stroke" Value="White"></Setter>
+        </Style>
+
+        <Style Selector="ToggleSwitch:unchecked /template/ Ellipse#SwitchKnobOff">
+            <Setter Property="Fill" Value="White" />
+        </Style>
+
+        <Style Selector="ToggleSwitch:unchecked /template/ Border#OuterBorder">
+            <Setter Property="BorderBrush" Value="White" />
+        </Style>
+        <Style Selector="ToggleButton /template/ Path#ExpandCollapseChevron">
+            <Setter Property="Stroke" Value="White"/>
+            
         </Style>
     </Window.Styles>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Border Grid.Column="0" Width="45" Height="10000" Background="#262628" HorizontalAlignment="Center" VerticalAlignment="Top">
-            <Image Source="avares://AppLocker/AppLockerUI/Assets/VSCODE.png" Height="30" VerticalAlignment="Top" Margin="5 10"></Image>
+        <Border Grid.Column="0" Width="45" Height="10000" Background="#262628" HorizontalAlignment="Center"
+                VerticalAlignment="Top">
+            <Image Source="avares://AppLocker/AppLockerUI/Assets/VSCODE.png" Height="30" VerticalAlignment="Top"
+                   Margin="5 10">
+            </Image>
         </Border>
-        <StackPanel Grid.Column="1" Orientation="Vertical" Spacing="0">
-            <Expander Header="Authentication Settings" IsExpanded="False" HorizontalAlignment="Stretch" >
+        <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <StackPanel Orientation="Vertical" Spacing="0">
+                <Expander Header="Authentication Settings" IsExpanded="False" HorizontalAlignment="Stretch">
+                    <StackPanel Margin="10" Spacing="10" Background="Transparent">
+                        <StackPanel Orientation="Horizontal" Spacing="5">
+                            <ToggleSwitch OffContent="" OnContent=""/>
+                            <TextBlock Text="Use Windows Hello" VerticalAlignment="Center" Foreground="White"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Spacing="5">
+                            <TextBox Width="200" VerticalAlignment="Center" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Spacing="5" Margin="0 20 0 0">
+                            <ToggleSwitch OffContent="" OnContent=""/>
+                            <TextBlock Text="Limit Attempts" VerticalAlignment="Center" Foreground="White"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <NumericUpDown Width="100" Minimum="1" Maximum="100" Increment="1" Value="1" />
+                            <TextBlock Text="Attempts per" VerticalAlignment="Center" Foreground="White" />
+                            <ComboBox Width="100">
+                                <ComboBoxItem Content="minute" />
+                                <ComboBoxItem Content="hour" />
+                                <ComboBoxItem Content="day" />
+                            </ComboBox>
+                        </StackPanel>
+                    </StackPanel>
                 </Expander>
-            <Expander Header="Time Settings" IsExpanded="False" HorizontalAlignment="Stretch">
-                <Border Background="#454547" Padding="4"> 
-                    <TextBlock Text="Time Content" Foreground="White"/>
-                </Border>
-            </Expander>
-        </StackPanel>
+                <Expander Header="Time Settings" IsExpanded="False" HorizontalAlignment="Stretch">
+                    <Border Background="#454547" Padding="4">
+                        <TextBlock Text="Time Content" Foreground="White" />
+                    </Border>
+                </Expander>
+            </StackPanel>
+        </ScrollViewer>
+
     </Grid>
 </Window>
