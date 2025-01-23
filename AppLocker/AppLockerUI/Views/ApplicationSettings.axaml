@@ -81,7 +81,7 @@
                         <StackPanel Orientation="Horizontal" Spacing="10">
                             <NumericUpDown Width="100" Minimum="1" Maximum="100" Increment="1" Value="1" />
                             <TextBlock Text="Attempts per" VerticalAlignment="Center" Foreground="White" />
-                            <ComboBox Width="100">
+                            <ComboBox Width="100" SelectedIndex="0">
                                 <ComboBoxItem Content="minute" />
                                 <ComboBoxItem Content="hour" />
                                 <ComboBoxItem Content="day" />
