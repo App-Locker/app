@@ -2,8 +2,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="250"
-        Width="400" Height="250"
+        mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="250"
+        Width="450" Height="250"
         ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="0"
@@ -35,7 +35,7 @@
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="Background" Value="Transparent" />
         </Style>
-        
+
         <Style Selector="Path">
             <Setter Property="Stroke" Value="White"></Setter>
         </Style>
@@ -48,8 +48,8 @@
             <Setter Property="BorderBrush" Value="White" />
         </Style>
         <Style Selector="ToggleButton /template/ Path#ExpandCollapseChevron">
-            <Setter Property="Stroke" Value="White"/>
-            
+            <Setter Property="Stroke" Value="White" />
+
         </Style>
     </Window.Styles>
     <Grid>
@@ -68,18 +68,18 @@
                 <Expander Header="Authentication Settings" IsExpanded="False" HorizontalAlignment="Stretch">
                     <StackPanel Margin="10" Spacing="10" Background="Transparent">
                         <StackPanel Orientation="Horizontal" Spacing="5">
-                            <ToggleSwitch OffContent="" OnContent=""/>
-                            <TextBlock Text="Use Windows Hello" VerticalAlignment="Center" Foreground="White"/>
+                            <ToggleSwitch OffContent="" OnContent="" />
+                            <TextBlock Text="Use Windows Hello" VerticalAlignment="Center" Foreground="White" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Spacing="5">
                             <TextBox Width="200" VerticalAlignment="Center" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Spacing="5" Margin="0 20 0 0">
-                            <ToggleSwitch OffContent="" OnContent=""/>
-                            <TextBlock Text="Limit Attempts" VerticalAlignment="Center" Foreground="White"/>
+                            <ToggleSwitch OffContent="" OnContent="" />
+                            <TextBlock Text="Limit Attempts" VerticalAlignment="Center" Foreground="White" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Spacing="10">
-                            <NumericUpDown Width="100" Minimum="1" Maximum="100" Increment="1" Value="1" />
+                            <NumericUpDown Width="110" Minimum="1" Maximum="10" Increment="1" Value="1"  />
                             <TextBlock Text="Attempts per" VerticalAlignment="Center" Foreground="White" />
                             <ComboBox Width="100" SelectedIndex="0">
                                 <ComboBoxItem Content="minute" />
@@ -90,8 +90,37 @@
                     </StackPanel>
                 </Expander>
                 <Expander Header="Time Settings" IsExpanded="False" HorizontalAlignment="Stretch">
-                    <Border Background="#454547" Padding="4">
-                        <TextBlock Text="Time Content" Foreground="White" />
+                    <Border Background="Transparent" Padding="4">
+                        <StackPanel Margin="10" Spacing="10" Background="Transparent">
+                            <StackPanel Orientation="Horizontal" Spacing="5">
+                                <ToggleSwitch OffContent="" OnContent="" />
+                                <TextBlock Text="Limit time" VerticalAlignment="Center" Foreground="White" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <NumericUpDown Width="110" Minimum="1" Maximum="167" Increment="1" Value="1" />
+                                <TextBlock Text="hours per" VerticalAlignment="Center" Foreground="White" />
+                                <ComboBox Width="100" SelectedIndex="0">
+                                    <ComboBoxItem Content="day" />
+                                    <ComboBoxItem Content="week" />
+                                </ComboBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="5" Margin="0 20 0 0">
+                                <ToggleSwitch OffContent="" OnContent="" />
+                                <TextBlock Text="Enable Warnings" VerticalAlignment="Center" Foreground="White" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <NumericUpDown Width="110" Minimum="1" Maximum="5" Increment="1" Value="1"></NumericUpDown>
+                                <TextBlock Text="Amount" VerticalAlignment="Center" Foreground="White"></TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <NumericUpDown Width="110" Minimum="1" Maximum="5" Increment="1" Value="1"></NumericUpDown>
+                                <ComboBox Width="100" SelectedIndex="0">
+                                    <ComboBoxItem Content="seconds" />
+                                    <ComboBoxItem Content="minutes" />
+                                </ComboBox>
+                                <TextBlock Text="before closing" VerticalAlignment="Center" Foreground="White"></TextBlock>
+                            </StackPanel>
+                        </StackPanel>
                     </Border>
                 </Expander>
             </StackPanel>
