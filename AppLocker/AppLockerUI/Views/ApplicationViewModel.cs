@@ -11,7 +11,7 @@ public class ApplicationViewModel : INotifyPropertyChanged
 
     public ApplicationViewModel()
     {
-        AddCommand = new RelayCommand(() => AddItem(new Bitmap("../../../AppLockerUI/Assets/lockWhite.png"), "VSCODE"));
+        AddCommand = new RelayCommand(() => AddItem(new Bitmap(Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"AppLockerUI","Assets", "lockWhite.png")), "VSCODE"));
         RemoveCommand = new RelayCommand(
             () => RemoveItem(SelectedItem),
             () => SelectedItem != null

@@ -131,13 +131,13 @@ public class BackendClient
     public static async Task CreateUserAsync(string email,string password)
     {
         // Initialize Appwrite Users service
-        var usersService = new Users(Client);
+        var usersService = new Account(Client);
 
         try
         {
             // User data
             // Create user
-            User createdUser = await usersService.CreateBcryptUser(
+            User createdUser = await usersService.Create(
                 ID.Unique(),
                 email,
                 password
