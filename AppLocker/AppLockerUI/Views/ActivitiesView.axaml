@@ -6,7 +6,7 @@
              xmlns:views="clr-namespace:AppLocker.Views"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="AppLocker.Views.ActivitiesView"
-             x:DataType="views:ActivitiesView">
+             x:DataType="views:ActivitiesViewModel">
     <UserControl.Resources>
         <appLockerUi:AlternatingBackgroundConverter x:Key="AlternatingBackgroundConverter" />
     </UserControl.Resources>

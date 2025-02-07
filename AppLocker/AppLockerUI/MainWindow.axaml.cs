@@ -22,6 +22,7 @@ public partial class MainWindow : Window
     protected override void OnClosing(WindowClosingEventArgs e)
     {
         saveSession();
+        Logger.writeLogFile();
     }
 
     protected override void OnLoaded(RoutedEventArgs e)
@@ -66,11 +67,7 @@ public partial class MainWindow : Window
 
     private Session? readJSON(string fileName)
     {
-        string appDataPath = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), 
-            "AppLocker"
-        );
-        string path = Path.Combine(appDataPath, fileName);
+        string path = FileHandler.CreateFilePath(fileName);
         if (!File.Exists(path)) return null;
         return JsonConvert.DeserializeObject<Session>(File.ReadAllText(path));
         
@@ -78,17 +75,8 @@ public partial class MainWindow : Window
     private void saveJSON(object toSave,string fileName)
     {
         var json = JsonConvert.SerializeObject(toSave, Formatting.Indented);
-            
-        string filePath = fileName;
-            
-        string appDataPath = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), 
-            "AppLocker"
-        );
-            
-        Directory.CreateDirectory(appDataPath); // Ensure the directory exists
-            
-        using (StreamWriter writer = new StreamWriter(Path.Combine(appDataPath,filePath)))
+        
+        using (StreamWriter writer = FileHandler.CreateFileStream(fileName))
         {
             writer.WriteLine(json);
         }

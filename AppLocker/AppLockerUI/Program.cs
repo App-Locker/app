@@ -14,6 +14,7 @@ internal class Program
     { 
         Thread appLockerThread = new Thread(AppLocker.StartWatchers);
         appLockerThread.Start();
+        FileHandler.init();
         BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
     } 
 

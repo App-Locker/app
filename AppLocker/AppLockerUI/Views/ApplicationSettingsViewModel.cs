@@ -150,6 +150,7 @@ public class ApplicationSettingsViewModel : INotifyPropertyChanged
 
     public ApplicationSettingsViewModel(ApplicationSettingsData data)
     {
+        //TODO: Fix that comboboxes work
         if (data == null) return;
         WindowsHelloSwitch = data.WindowsHelloSwitch;
         PasswordTextBox = data.PasswordTextBox;

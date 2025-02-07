@@ -114,7 +114,7 @@ public class AppLocker
             if (!_isWindowsHelloOpen)
             {
                 _isWindowsHelloOpen = true;
-                AuthenticateNextApp();
+                AuthenticateNextApp(appName);
             }
         }
     }
@@ -125,7 +125,6 @@ public class AppLocker
         Process appProcess = Process.GetProcessById(processId);
         try
         {
-            
             if (!appProcess.HasExited)
             {
                 Console.WriteLine($"Killing process: {appName} (PID: {processId})");
@@ -139,7 +138,7 @@ public class AppLocker
         }
     }
 
-    private static async void AuthenticateNextApp()
+    private static async void AuthenticateNextApp(string appName)
     {
         while (QueueAppsToAuthenticate.Count > 0)
         {
@@ -152,10 +151,12 @@ public class AppLocker
                 string appToStart = QueueAppsToAuthenticate.Dequeue();
                 AppToIsUnlocked[appToStart] = true;
                 StartApplication(appToStart);
+                Logger.Success(appName);
             }
             else
             {
                 Console.WriteLine($"Authentication failed for {appToAuthenticate}. The app remains locked.");
+                Logger.Fail(appName);
                 QueueAppsToAuthenticate.Dequeue();
             }
         }

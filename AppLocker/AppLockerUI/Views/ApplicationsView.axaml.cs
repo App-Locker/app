@@ -22,12 +22,8 @@ public partial class ApplicationsView : UserControl
     protected override void OnUnloaded(RoutedEventArgs e)
     {
         string filePath = "locked_apps.json";
-        string appDataPath = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "AppLocker"
-        );
-        Directory.CreateDirectory(appDataPath); // Ensure the directory exists
-        using (StreamWriter writer = new StreamWriter(Path.Combine(appDataPath, filePath)))
+        
+        using (StreamWriter writer = FileHandler.CreateFileStream(filePath))
         {
             //writer.WriteLine(viewModel.Items);
         }
