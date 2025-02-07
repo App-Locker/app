@@ -1,6 +1,8 @@
 using System;
 using System.ComponentModel;
+using System.Configuration;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using System.Windows.Input;
 using Appwrite;
 
@@ -56,9 +58,23 @@ public class RegistrationContentViewModel : INotifyPropertyChanged
 
     private async void register()
     {
-        if (EmailText.Equals("") || EmailText == null) return;
-        if(PasswordText.Equals("") || PasswordText == null) return;
-        if(PasswordConfirmText.Equals("") || PasswordConfirmText == null) return;
+        Regex regex = new Regex("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
+        if (!regex.Match(EmailText).Success || EmailText == null)
+        {
+            Console.WriteLine("Email is not valid");
+            return;
+        }
+        if (PasswordText.Equals("") || PasswordText == null)
+        {
+            Console.WriteLine("Password is empty");
+            return;
+        }
+
+        if (PasswordConfirmText.Equals("") || PasswordConfirmText == null)
+        {
+            Console.WriteLine("Password confirm is empty");
+            return;
+        }
         if (!PasswordText.Equals(PasswordConfirmText))
         {
             Console.WriteLine("Password not the same");
@@ -69,6 +85,7 @@ public class RegistrationContentViewModel : INotifyPropertyChanged
         try
         {
             await BackendClient.CreateUserAsync(EmailText, PasswordText);
+            Console.WriteLine("User created");
         }
         catch (AppwriteException e)
         {

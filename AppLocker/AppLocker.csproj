@@ -8,6 +8,10 @@
         <AssemblyName>AppLocker</AssemblyName>
         <RootNamespace>AppLocker</RootNamespace>
         <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+        <PublishSingleFile>true</PublishSingleFile>
+        <SelfContained>true</SelfContained>
+        <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+<!--        <EnableCOMInterop>true</EnableCOMInterop>-->
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(RuntimeIdentifier)' == 'win-x64'">
@@ -62,5 +66,4 @@
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
     </ItemGroup>
-
 </Project>
