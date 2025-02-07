@@ -59,6 +59,9 @@
             <DependentUpon>RegistrationView.axaml</DependentUpon>
             <SubType>Code</SubType>
         </Compile>
+        <Compile Update="AppLockerUI\Views\ApplicationSettings.axaml.cs">
+          <DependentUpon>ApplicationSettings.axaml</DependentUpon>
+        </Compile>
     </ItemGroup>
     <ItemGroup>
         <None Remove="AppLocker.exe.manifest"/>
