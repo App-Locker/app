@@ -72,7 +72,7 @@
                             <TextBlock Text="Use Windows Hello" VerticalAlignment="Center" Foreground="White" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Spacing="5">
-                            <TextBox Width="200" VerticalAlignment="Center" />
+                            <TextBox Width="200" VerticalAlignment="Center" Watermark="Password"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Spacing="5" Margin="0 20 0 0">
                             <ToggleSwitch OffContent="" OnContent="" />
