@@ -2,10 +2,28 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:appLockerUi="clr-namespace:AppLocker.AppLockerUI.Views"
+             xmlns:views="clr-namespace:AppLocker.Views"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="AppLocker.Views.ActivitiesView">
-    <Grid>
-        <TextBlock Text="Activities Page" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center"
-                   Foreground="White" />
-    </Grid>
+             x:Class="AppLocker.Views.ActivitiesView"
+             x:DataType="views:ActivitiesView">
+    <UserControl.Resources>
+        <appLockerUi:AlternatingBackgroundConverter x:Key="AlternatingBackgroundConverter" />
+    </UserControl.Resources>
+    
+    
+    <ScrollViewer HorizontalScrollBarVisibility="Auto">
+        <StackPanel>
+            <ItemsControl ItemsSource="{Binding Items}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                            <DockPanel Width="" Background="{Binding Index, Converter={StaticResource AlternatingBackgroundConverter}}">
+                                <Image Source="{SvgImage avares://AppLocker/AppLockerUI/Assets/settingsSlide.svg}" Width="50" Height="50" DockPanel.Dock="Left" Margin="5"/>
+                                <TextBlock Text="{Binding Text}" VerticalAlignment="Center" Margin="10,0"/>
+                            </DockPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>
