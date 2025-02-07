@@ -1,4 +1,4 @@
-using AppLocker.AppLockerUI.Views;
+using AppLocker.Views;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
@@ -16,7 +16,7 @@ public class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             desktop.MainWindow = new MainWindow();
-        
+       
 
         base.OnFrameworkInitializationCompleted();
     }

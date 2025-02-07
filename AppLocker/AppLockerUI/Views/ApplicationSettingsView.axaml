@@ -2,12 +2,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:appLockerUi="clr-namespace:AppLocker.Views"
         mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="250"
         Width="450" Height="250"
         ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="0"
-        x:Class="AppLocker.AppLockerUI.Views.ApplicationSettings"
+        x:Class="AppLocker.Views.ApplicationSettingsView"
+        x:DataType="appLockerUi:ApplicationSettingsViewModel"
         Title="ApplicationSettings"
         Background="#323234">
     <Window.Styles>
@@ -68,20 +70,20 @@
                 <Expander Header="Authentication Settings" IsExpanded="False" HorizontalAlignment="Stretch">
                     <StackPanel Margin="10" Spacing="10" Background="Transparent">
                         <StackPanel Orientation="Horizontal" Spacing="5">
-                            <ToggleSwitch OffContent="" OnContent="" />
+                            <ToggleSwitch OffContent="" OnContent="" IsChecked="{Binding WindowsHelloSwitch, Mode=TwoWay}"/>
                             <TextBlock Text="Use Windows Hello" VerticalAlignment="Center" Foreground="White" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Spacing="5">
-                            <TextBox Width="200" VerticalAlignment="Center" Watermark="Password"/>
+                            <TextBox Width="200" VerticalAlignment="Center" Watermark="Password" Text="{Binding PasswordTextBox, Mode=TwoWay}" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Spacing="5" Margin="0 20 0 0">
-                            <ToggleSwitch OffContent="" OnContent="" />
+                            <ToggleSwitch OffContent="" OnContent="" IsChecked="{Binding LimitAttempsSwitch, Mode=TwoWay}"/>
                             <TextBlock Text="Limit Attempts" VerticalAlignment="Center" Foreground="White" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Spacing="10">
-                            <NumericUpDown Width="110" Minimum="1" Maximum="10" Increment="1" Value="1"  />
+                            <NumericUpDown Width="110" Minimum="1" Maximum="10" Increment="1" Value="{Binding LimitAttempsCount, Mode=TwoWay}" />
                             <TextBlock Text="Attempts per" VerticalAlignment="Center" Foreground="White" />
-                            <ComboBox Width="100" SelectedIndex="0">
+                            <ComboBox Width="100" SelectedIndex="0" SelectedItem="{Binding LimitAttempsTimeUnit, Mode=TwoWay}">
                                 <ComboBoxItem Content="minute" />
                                 <ComboBoxItem Content="hour" />
                                 <ComboBoxItem Content="day" />
@@ -93,28 +95,28 @@
                     <Border Background="Transparent" Padding="4">
                         <StackPanel Margin="10" Spacing="10" Background="Transparent">
                             <StackPanel Orientation="Horizontal" Spacing="5">
-                                <ToggleSwitch OffContent="" OnContent="" />
+                                <ToggleSwitch OffContent="" OnContent="" IsChecked="{Binding LimitTimeSwitch, Mode=TwoWay}"/>
                                 <TextBlock Text="Limit time" VerticalAlignment="Center" Foreground="White" />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Spacing="10">
-                                <NumericUpDown Width="110" Minimum="1" Maximum="167" Increment="1" Value="1" />
+                                <NumericUpDown Width="110" Minimum="1" Maximum="167" Increment="1" Value="{Binding LimitTimeCount, Mode=TwoWay}"/>
                                 <TextBlock Text="hours per" VerticalAlignment="Center" Foreground="White" />
-                                <ComboBox Width="100" SelectedIndex="0">
+                                <ComboBox Width="100" SelectedIndex="0" SelectedItem="{Binding LimitTimeTimeUnit, Mode=TwoWay}">
                                     <ComboBoxItem Content="day" />
                                     <ComboBoxItem Content="week" />
                                 </ComboBox>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Spacing="5" Margin="0 20 0 0">
-                                <ToggleSwitch OffContent="" OnContent="" />
+                                <ToggleSwitch OffContent="" OnContent="" IsChecked="{Binding WarningsSwitch, Mode=TwoWay}"/>
                                 <TextBlock Text="Enable Warnings" VerticalAlignment="Center" Foreground="White" />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Spacing="10">
-                                <NumericUpDown Width="110" Minimum="1" Maximum="5" Increment="1" Value="1"></NumericUpDown>
+                                <NumericUpDown Width="110" Minimum="1" Maximum="5" Increment="1" Value="{Binding WarningsAmount, Mode=TwoWay}"></NumericUpDown>
                                 <TextBlock Text="Amount" VerticalAlignment="Center" Foreground="White"></TextBlock>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Spacing="10">
-                                <NumericUpDown Width="110" Minimum="1" Maximum="5" Increment="1" Value="1"></NumericUpDown>
-                                <ComboBox Width="100" SelectedIndex="0">
+                                <NumericUpDown Width="110" Minimum="1" Maximum="5" Increment="1" Value="{Binding WarningsTimeCount, Mode=TwoWay}"></NumericUpDown>
+                                <ComboBox Width="100" SelectedIndex="0" SelectedItem="{Binding WarningsTimeUnit, Mode=TwoWay}">
                                     <ComboBoxItem Content="seconds" />
                                     <ComboBoxItem Content="minutes" />
                                 </ComboBox>
