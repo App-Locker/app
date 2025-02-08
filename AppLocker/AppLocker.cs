@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Management;
 using System.Runtime.InteropServices;
+using Windows.Security.Credentials.UI;
 
 namespace AppLocker;
 
@@ -107,6 +108,9 @@ public class AppLocker
         // Check if the program needs to ask for a password
         if (!AppToIsUnlocked[appName])
         {
+            //TODO: temp soulution
+            if(!isWindowsHelloActive().Result)
+                return;
             //Kill the process if it is locked
             KillApp(appName,targetInstance["ParentProcessId"]);
             if(!QueueAppsToAuthenticate.Contains(appName))
@@ -184,6 +188,12 @@ public class AppLocker
         // {
         //     Process.Start("AppLockerWatchdog.exe");
         // }
+    }
+
+    private static async Task<bool> isWindowsHelloActive()
+    {
+        var availability = await UserConsentVerifier.CheckAvailabilityAsync();
+        return availability == UserConsentVerifierAvailability.Available;
     }
 
     private static string GetAppPathFromAppName(string appName)

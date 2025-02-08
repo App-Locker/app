@@ -49,7 +49,6 @@ public class ApplicationViewModel : INotifyPropertyChanged
         if(item == null) return;
         ApplicationSettingsData? data = Settings.Find(settings => settings.Id == item.Id);
         _settingsView = new ApplicationSettingsView();
-        //TODO: fix that the comboboxes work
         if (data == null)
         {
             Settings.Add(new ApplicationSettingsData(item.Id));
@@ -59,7 +58,6 @@ public class ApplicationViewModel : INotifyPropertyChanged
         {
             _settingsView.DataContext = new ApplicationSettingsViewModel(data);
         }
-        
         if (!_settingsView.IsVisible)
             await _settingsView.ShowDialog(
                 App.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop

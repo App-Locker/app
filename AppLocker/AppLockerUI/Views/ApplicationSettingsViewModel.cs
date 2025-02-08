@@ -28,44 +28,44 @@ public class ApplicationSettingsViewModel : INotifyPropertyChanged
         }
     }
 
-    private bool _limitAttempsSwitch;
+    private bool _limitAttemptsSwitch;
 
-    public bool LimitAttempsSwitch
+    public bool LimitAttemptsSwitch
     {
-        get => _limitAttempsSwitch;
+        get => _limitAttemptsSwitch;
         set
         {
-            _limitAttempsSwitch = value;
-            OnPropertyChanged(nameof(LimitAttempsSwitch));
+            _limitAttemptsSwitch = value;
+            OnPropertyChanged(nameof(LimitAttemptsSwitch));
         }
     }
 
-    private int _limitAttempsCount;
+    private int _limitAttemptsCount;
 
-    public int LimitAttempsCount
+    public int LimitAttemptsCount
     {
-        get => _limitAttempsCount;
+        get => _limitAttemptsCount;
         set
         {
-            _limitAttempsCount = value;
-            OnPropertyChanged(nameof(LimitAttempsCount));
+            _limitAttemptsCount = value;
+            OnPropertyChanged(nameof(LimitAttemptsCount));
         }
     }
 
-    private string _limitAttempsTimeUnit;
+    private int _limitAttemptsTimeUnit;
 
-    public string LimitAttempsTimeUnit
+    public int LimitAttemptsTimeUnit
     {
-        get => _limitAttempsTimeUnit;
+        get => _limitAttemptsTimeUnit;
         set
         {
-            _limitAttempsTimeUnit = value;
-            OnPropertyChanged(nameof(LimitAttempsTimeUnit));
+            _limitAttemptsTimeUnit = value;
+            OnPropertyChanged(nameof(LimitAttemptsTimeUnit));
         }
     }
 
     private bool _limitTimeSwitch;
-
+    public List<string> LimitAttempsTimeUnits { get;set; } = new() { "minute","hour","day"};
     public bool LimitTimeSwitch
     {
         get => _limitTimeSwitch;
@@ -88,9 +88,9 @@ public class ApplicationSettingsViewModel : INotifyPropertyChanged
         }
     }
 
-    private string _limitTimeTimeUnit;
+    private int _limitTimeTimeUnit;
 
-    public string LimitTimeTimeUnit
+    public int LimitTimeTimeUnit
     {
         get => _limitTimeTimeUnit;
         set
@@ -99,6 +99,7 @@ public class ApplicationSettingsViewModel : INotifyPropertyChanged
             OnPropertyChanged(nameof(LimitTimeTimeUnit));
         }
     }
+    public List<string> LimitTimeTimeUnits { get; set; } = new() { "day", "week"};
 
     private bool _warningsSwitch;
 
@@ -136,9 +137,9 @@ public class ApplicationSettingsViewModel : INotifyPropertyChanged
         }
     }
 
-    private string _warningsTimeUnit;
+    private int _warningsTimeUnit;
 
-    public string WarningsTimeUnit
+    public int WarningsTimeUnit
     {
         get => _warningsTimeUnit;
         set
@@ -147,23 +148,35 @@ public class ApplicationSettingsViewModel : INotifyPropertyChanged
             OnPropertyChanged(nameof(WarningsTimeUnit));
         }
     }
+    public List<string> WarningsTimeUnits { get;set; } = new() { "seconds", "minutes"};
 
     public ApplicationSettingsViewModel(ApplicationSettingsData data)
     {
         //TODO: Fix that comboboxes work
-        if (data == null) return;
         WindowsHelloSwitch = data.WindowsHelloSwitch;
         PasswordTextBox = data.PasswordTextBox;
-        LimitAttempsSwitch = data.LimitAttempsSwitch;
-        LimitAttempsCount = data.LimitAttempsCount;
-        LimitAttempsTimeUnit = data.LimitAttempsTimeUnit;
+        
+        LimitAttemptsSwitch = data.LimitAttemptsSwitch;
+        LimitAttemptsCount = data.LimitAttemptsCount;
+        if(LimitAttempsTimeUnits.Contains(data.LimitAttemptsTimeUnit))
+            LimitAttemptsTimeUnit = LimitAttempsTimeUnits.IndexOf(data.LimitAttemptsTimeUnit);
+        else
+            LimitAttemptsTimeUnit = 0;
+        
         LimitTimeSwitch = data.LimitTimeSwitch;
         LimitTimeCount = data.LimitTimeCount;
-        LimitTimeTimeUnit = data.LimitTimeTimeUnit;
+        if(LimitTimeTimeUnits.Contains(data.LimitTimeTimeUnit))
+            LimitTimeTimeUnit = LimitTimeTimeUnits.IndexOf(data.LimitTimeTimeUnit);
+        else
+            LimitTimeTimeUnit = 0;
+        
         WarningsSwitch = data.WarningsSwitch;
         WarningsAmount = data.WarningsAmount;
         WarningsTimeCount = data.WarningsTimeCount;
-        WarningsTimeUnit = data.WarningsTimeUnit;
+        if(WarningsTimeUnits.Contains(data.WarningsTimeUnit))
+            WarningsTimeUnit = WarningsTimeUnits.IndexOf(data.WarningsTimeUnit);
+        else
+            WarningsTimeUnit = 0;
     }
 
     public ApplicationSettingsViewModel()

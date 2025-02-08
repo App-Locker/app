@@ -77,13 +77,13 @@
                             <TextBox Width="200" VerticalAlignment="Center" Watermark="Password" Text="{Binding PasswordTextBox, Mode=TwoWay}" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Spacing="5" Margin="0 20 0 0">
-                            <ToggleSwitch OffContent="" OnContent="" IsChecked="{Binding LimitAttempsSwitch, Mode=TwoWay}"/>
+                            <ToggleSwitch OffContent="" OnContent="" IsChecked="{Binding LimitAttemptsSwitch, Mode=TwoWay}"/>
                             <TextBlock Text="Limit Attempts" VerticalAlignment="Center" Foreground="White" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Spacing="10">
-                            <NumericUpDown Width="110" Minimum="1" Maximum="10" Increment="1" Value="{Binding LimitAttempsCount, Mode=TwoWay}" />
+                            <NumericUpDown Width="110" Minimum="1" Maximum="10" Increment="1" Value="{Binding LimitAttemptsCount, Mode=TwoWay}" />
                             <TextBlock Text="Attempts per" VerticalAlignment="Center" Foreground="White" />
-                            <ComboBox Width="100" SelectedIndex="0" SelectedItem="{Binding LimitAttempsTimeUnit, Mode=TwoWay}">
+                            <ComboBox Width="100" SelectedIndex="{Binding LimitAttemptsTimeUnit, Mode=TwoWay}" ItemsSource="{Binding LimitAttempsTimeUnits, Mode=OneWay}">
                                 <ComboBoxItem Content="minute" />
                                 <ComboBoxItem Content="hour" />
                                 <ComboBoxItem Content="day" />
@@ -101,7 +101,7 @@
                             <StackPanel Orientation="Horizontal" Spacing="10">
                                 <NumericUpDown Width="110" Minimum="1" Maximum="167" Increment="1" Value="{Binding LimitTimeCount, Mode=TwoWay}"/>
                                 <TextBlock Text="hours per" VerticalAlignment="Center" Foreground="White" />
-                                <ComboBox Width="100" SelectedIndex="0" SelectedItem="{Binding LimitTimeTimeUnit, Mode=TwoWay}">
+                                <ComboBox Width="100" SelectedIndex="{Binding LimitTimeTimeUnit, Mode=TwoWay}" ItemsSource="{Binding LimitTimeTimeUnits, Mode=TwoWay}">
                                     <ComboBoxItem Content="day" />
                                     <ComboBoxItem Content="week" />
                                 </ComboBox>
@@ -116,7 +116,7 @@
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Spacing="10">
                                 <NumericUpDown Width="110" Minimum="1" Maximum="5" Increment="1" Value="{Binding WarningsTimeCount, Mode=TwoWay}"></NumericUpDown>
-                                <ComboBox Width="100" SelectedIndex="0" SelectedItem="{Binding WarningsTimeUnit, Mode=TwoWay}">
+                                <ComboBox Width="100" SelectedIndex="{Binding WarningsTimeUnit, Mode=TwoWay}" ItemsSource="{Binding WarningsTimeUnits, Mode=TwoWay}">
                                     <ComboBoxItem Content="seconds" />
                                     <ComboBoxItem Content="minutes" />
                                 </ComboBox>
