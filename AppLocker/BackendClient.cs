@@ -1,11 +1,12 @@
 ﻿using System.Drawing;
-using System.Drawing.Imaging;
 using AppLocker.database_obj;
 using Appwrite;
+using Appwrite.Enums;
 using Appwrite.Models;
 using Appwrite.Services;
 using Microsoft.Extensions.Configuration;
 using File = Appwrite.Models.File;
+using ImageFormat = System.Drawing.Imaging.ImageFormat;
 
 namespace AppLocker;
 
@@ -173,6 +174,12 @@ public class BackendClient
         }
     }
 
+    public async Task<string> getOAuthToken()
+    {
+        Account account = new Account(Client);
+        string token = await account.CreateOAuth2Token(OAuthProvider.Google);
+        return token;
+    }
     public async Task<File> AddFileToBucket(string bucketID,Icon file,string fileName,params string[] permissions)
     {
         using (Bitmap bitmap = file.ToBitmap())

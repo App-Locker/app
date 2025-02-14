@@ -24,7 +24,8 @@
                     HorizontalContentAlignment="Center"
                     Command="{Binding RegisterCallCommand}" />
             <Button Content="OAuth Login" Width="140" Background="#505050" Foreground="White"
-                    HorizontalContentAlignment="Center" />
+                    HorizontalContentAlignment="Center" 
+                    Command="{Binding OAuthCallCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>

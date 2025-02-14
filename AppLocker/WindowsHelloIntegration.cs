@@ -17,7 +17,17 @@ public class WindowsHelloIntegration
         {
             return false;
         }
-        var consentResult = await UserConsentVerifier.RequestVerificationAsync("Please verify your identity");
-        return consentResult == UserConsentVerificationResult.Verified;
+
+        try
+        {
+            var consentResult = await UserConsentVerifier.RequestVerificationAsync("Please verify your identity");
+            return consentResult == UserConsentVerificationResult.Verified;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"{ex.Message} : {ex.StackTrace}");
+        }
+
+        return false;
     }
 }

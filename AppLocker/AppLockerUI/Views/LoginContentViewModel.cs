@@ -1,6 +1,8 @@
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using Appwrite;
 
 namespace AppLocker.Views;
 
@@ -38,6 +40,22 @@ public class LoginContentViewModel : INotifyPropertyChanged
     {
         RegisterCallCommand = new RelayCommand(() => navigateToRegister());
         LoginCommand = new RelayCommand(() => Login());
+        OAuthCallCommand = new RelayCommand(() => OAuth());
+    }
+
+    private async void OAuth()
+    {
+        try
+        {
+            string url = await BackendClient.Instance.getOAuthToken();
+            Console.WriteLine(url);
+            Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+        }
+        catch (AppwriteException e)
+        {
+            //Console.WriteLine($"{e.Message} : {e.InnerException}");
+        }
+        
     }
 
     public async Task Login()
@@ -77,6 +95,7 @@ public class LoginContentViewModel : INotifyPropertyChanged
 
     public ICommand RegisterCallCommand { get; }
     public ICommand LoginCommand { get; }
+    public ICommand OAuthCallCommand { get; }
 
     public event PropertyChangedEventHandler? PropertyChanged;
 }

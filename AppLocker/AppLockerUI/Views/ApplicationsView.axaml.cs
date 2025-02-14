@@ -15,7 +15,7 @@ public partial class ApplicationsView : UserControl
     public ApplicationsView()
     {
         InitializeComponent();
-        viewModel = new ApplicationViewModel();
+        viewModel = new ApplicationViewModel(this);
         DataContext = viewModel;
     }
 

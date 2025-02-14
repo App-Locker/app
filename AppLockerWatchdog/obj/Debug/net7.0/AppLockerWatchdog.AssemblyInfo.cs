@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AppLockerWatchdog")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f363e9459a6903e04c6f1dd238129969f616116d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+70f6de95ee432622aa9b52a4339375af8d25a3f6")]
 [assembly: System.Reflection.AssemblyProductAttribute("AppLockerWatchdog")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AppLockerWatchdog")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
