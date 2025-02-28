@@ -61,9 +61,12 @@
         </Grid.ColumnDefinitions>
         <Border Grid.Column="0" Width="45" Height="10000" Background="#262628" HorizontalAlignment="Center"
                 VerticalAlignment="Top">
-            <Image Source="avares://AppLocker/AppLockerUI/Assets/VSCODE.png" Height="30" VerticalAlignment="Top"
-                   Margin="5 10">
-            </Image>
+           <StackPanel Orientation="Vertical">
+               <Image Source="avares://AppLocker/AppLockerUI/Assets/VSCODE.png" Height="30" VerticalAlignment="Top"
+                      Margin="5 10">
+               </Image>
+               <Button HorizontalAlignment="Center" VerticalAlignment="Bottom">Exit</Button>
+           </StackPanel>
         </Border>
         <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
             <StackPanel Orientation="Vertical" Spacing="0">
